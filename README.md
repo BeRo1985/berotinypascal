@@ -31,7 +31,7 @@ A self-hosting capable tiny pascal compiler for the Win32 x86 platform
 
 1. Make sure you are legally allowed to make a contribution under the zlib license.                                                   
 2. The zlib license header goes at the top of each source file, with appropriate copyright notice.
-3. After a pull request, check the status of your pull request on http://github.com/BeRo1985/berotinypascal
+3. After a pull request, check the status of your pull request on http://github.com/BeRo1985/berotinypascal .
 4. Write code, which is compatible with Delphi 7-XE7 and FreePascal >= 3.0 and even with BeRoTinyPascal itself, so don't use generics/templates, operator overloading and another newer syntax features than Delphi 7 and BeRoTinyPascal have support for that     
 5. Don't use any libraries/units except the RTL system unit functions.
 6.  Make sure the code compiles with Delphi 7, FreePascal >= 3.0 and with BeRoTinyPascal itself.
