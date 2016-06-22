@@ -3,7 +3,7 @@
  ******************************************************************************
  *   A self-hosting capable tiny pascal compiler for the Win32 x86 platform   *
  ******************************************************************************
- *                        Version 2016-06-22-00-00-0000                       *
+ *                        Version 2016-06-22-17-59-0000                       *
  ******************************************************************************
  *                                zlib license                                *
  *============================================================================*
@@ -307,7 +307,7 @@ begin
    Write('">" expected');
   end;
   TokGEq:begin
-   Write('">)" expected');
+   Write('">=" expected');
   end;
   TokLParent:begin
    Write('"(" expected');
@@ -782,6 +782,16 @@ begin
   end;
   ReadChar;
   GetSymbol;
+ end else if CurrentChar='/' then begin
+  ReadChar;
+  if CurrentChar='/' then begin
+   repeat
+    ReadChar;
+   until CurrentChar=#10;
+   GetSymbol;
+  end else begin
+   Error(102);
+  end;
  end else begin
   Error(102);
  end;
