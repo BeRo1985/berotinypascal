@@ -134,6 +134,7 @@ PUSHAD
   JMP ReadIntegerLoop
  ReadIntegerDone:
  IMUL ECX
+ MOV DWORD PTR [ESP+28],EAX
 POPAD
 RET
 RTLReadLn:
