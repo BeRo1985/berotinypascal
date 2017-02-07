@@ -1,6 +1,6 @@
 program rtl2pas;
 
-const LineLen=255;
+const LineLen=25;
       SigStart=4;
       SigLen=7;
 
