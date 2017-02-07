@@ -1,51 +1,42 @@
 program rtl2pas;
-uses SysUtils,Classes;
-const Signature:array[0..7] of ansichar='BeRo^fr';
-var Stream:TMemoryStream;
-    StringList:TStringList;
-    i,j,k:longint;
-    l:ansistring;
+
+const LineLen=255;
+      SigStart=4;
+      SigLen=7;
+
+type TSignature = array[1..SigLen] of char;
+
+procedure MakeRtl(sig: TSignature);
+var CurChar: char;
+    j, datasize: integer;
 begin
- Stream:=TMemoryStream.Create;
- try
-  Stream.LoadFromFile('rtl.exe');
-  Move(Signature[0],PAnsiChar(Stream.Memory)[4],SizeOf(Signature));
-  StringList:=TStringList.Create;
-  try
-   StringList.Add(' OutputCodeDataSize:=0;');
-   l:='';
-   j:=0;
-   k:=Stream.Size;
-   if (k mod 255)<>0 then begin
-    inc(k,255-(k mod 255));
-   end;
-   for i:=0 to k-1 do begin
-    if length(l)=0 then begin
-     l:=' OutputCodeString(';
+  writeln(' OutputCodeDataSize:=0;');
+  j:=0;
+  while not EOF do begin
+    if (j mod LineLen) = 0 then begin
+      write(' OutputCodeString(');
     end;
-    if i<Stream.Size then begin
-     l:=l+'#'+IntToStr(Byte(AnsiChar(PAnsiChar(Stream.Memory)[i])));
+    read(CurChar);
+    if (SigStart <= j) and (j < SigStart + SigLen) then begin
+      write('#', ord(sig[j - SigStart + 1]));
     end else begin
-     l:=l+'#$90';
+      write('#', ord(CurChar));
     end;
-    inc(j);
-    if j>=255 then begin
-     j:=0;
-     if length(l)>0 then begin
-      StringList.Add(l+');');
-     end;
-     l:='';
+    j:=j+1;
+    if (j mod LineLen) = 0 then begin
+      writeln(');');
     end;
-   end;
-   if length(l)>0 then begin
-    StringList.Add(l+');');
-   end;
-   StringList.Add(' OutputCodeDataSize:='+IntToStr(Stream.Size)+';');
-   StringList.SaveToFile('rtl.pas');
-  finally
-   StringList.Free;
   end;
- finally
-  Stream.Free;
- end;
+
+  datasize:=j;
+  while (j mod LineLen) <> 0 do begin
+    write('#$90');
+    j:=j+1;
+  end;
+  writeln(');');
+  writeln(' OutputCodeDataSize:=', datasize, ';');
+end;
+
+begin
+  MakeRtl('BeRo^fr');
 end.
