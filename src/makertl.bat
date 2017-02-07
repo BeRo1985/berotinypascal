@@ -1,5 +1,4 @@
 @echo off
 egasm +peexe +optimizejumps -gui rtl.asm
-dcc32 -B rtl2pas.dpr
-rtl2pas
-
+..\bin\btpc.exe < rtl2pas.dpr > rtl2pas.exe
+rtl2pas.exe < rtl.exe > rtl.pas
