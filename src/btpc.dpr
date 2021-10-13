@@ -645,6 +645,7 @@ begin
   while s<=SymPROC do begin
    if StringCompare(Keywords[s],CurrentIdentifer) then begin
     CurrentSymbol:=s;
+    break;
    end;
    s:=s+1;
   end;
