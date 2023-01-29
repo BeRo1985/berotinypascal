@@ -137,36 +137,37 @@ const MaximalCodeSize=262144;
       TokSemi=18;
       TokPeriod=19;
       TokAssign=20;
-      SymBEGIN=21;
-      SymEND=22;
-      SymIF=23;
-      SymTHEN=24;
-      SymELSE=25;
-      SymWHILE=26;
-      SymDO=27;
-      SymCASE=28;
-      SymREPEAT=29;
-      SymUNTIL=30;
-      SymFOR=31;
-      SymTO=32;
-      SymDOWNTO=33;
-      SymNOT=34;
-      SymDIV=35;
-      SymMOD=36;
-      SymAND=37;
-      SymOR=38;
-      SymCONST=39;
-      SymVAR=40;
-      SymTYPE=41;
-      SymARRAY=42;
-      SymOF=43;
-      SymPACKED=44;
-      SymRECORD=45;
-      SymPROGRAM=46;
-      SymFORWARD=47;
-      SymHALT=48;
-      SymFUNC=49;
-      SymPROC=50;
+      TokRange=21;
+      SymBEGIN=22;
+      SymEND=23;
+      SymIF=24;
+      SymTHEN=25;
+      SymELSE=26;
+      SymWHILE=27;
+      SymDO=28;
+      SymCASE=29;
+      SymREPEAT=30;
+      SymUNTIL=31;
+      SymFOR=32;
+      SymTO=33;
+      SymDOWNTO=34;
+      SymNOT=35;
+      SymDIV=36;
+      SymMOD=37;
+      SymAND=38;
+      SymOR=39;
+      SymCONST=40;
+      SymVAR=41;
+      SymTYPE=42;
+      SymARRAY=43;
+      SymOF=44;
+      SymPACKED=45;
+      SymRECORD=46;
+      SymPROGRAM=47;
+      SymFORWARD=48;
+      SymHALT=49;
+      SymFUNC=50;
+      SymPROC=51;
 
       IdCONST=0;
       IdVAR=1;
@@ -326,6 +327,9 @@ begin
   end;
   TokAssign:begin
    Write('":=" expected');
+  end;
+  TokRange:begin
+   Write('".." expected');
   end;
   SymBEGIN:begin
    Write('"begin" expected');
@@ -682,7 +686,7 @@ begin
   ReadChar;
   if CurrentChar='.' then begin
    ReadChar;
-   CurrentSymbol:=TokColon;
+   CurrentSymbol:=TokRange;
   end else begin
    CurrentSymbol:=TokPeriod
   end;
@@ -1651,7 +1655,7 @@ begin
  GetSymbol;
  Constant(Types[t].StartIndex,x);
  MustBe(TypeINT,x);
- Expect(TokColon);
+ Expect(TokRange);
  Constant(Types[t].EndIndex,x);
  MustBe(TypeINT,x);
  if Types[t].StartIndex>Types[t].EndIndex then begin
