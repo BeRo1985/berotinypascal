@@ -1,3 +1,7 @@
+> [!IMPORTANT]
+> The primary repository has moved to [git.rosseaux.net/BeRo1985/berotinypascal](https://git.rosseaux.net/BeRo1985/berotinypascal).
+> This GitHub repository is kept up-to-date via push mirroring.
+
 # BeRoTinyPascal
 A self-hosting capable tiny pascal compiler for the Win32 x86 platform 
 
